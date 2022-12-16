@@ -12,3 +12,14 @@ Spark has been around for a number of years but continues to gain in popularity 
 `Spark’s Basic Architecture`
 
 Single machines do not have enough power and resources to perform computations on huge amounts of information (or the user probably does not have the time to wait for the computation to finish). A cluster, or group, of computers, pools the resources of many machines together, giving us the ability to use all the cumulative resources as if they were a single computer. Now, a group of machines alone is not powerful, you need a framework to coordinate work across them. Spark does just that, managing and coordinating the execution of tasks on data across a cluster of computers. The cluster of machines that Spark will use to execute tasks is managed by a cluster manager like Spark’s standalone cluster manager, YARN, or Mesos. We then submit Spark Applications to these cluster managers, which will grant resources to our application so that we can complete our work.
+
+
+`Spark Applications`
+
+![Screenshot from 2022-12-16 13-26-18](https://user-images.githubusercontent.com/98364965/208144008-a1c87da3-1107-4df7-9871-c82fc859e944.png)
+
+Spark Applications consist of a `driver process` and a set of `executor processes`. The driver process runs your `main()` function, sits on a node in the cluster, and is responsible for three things: maintaining information about the Spark Application; responding to a user’s program or input; and analyzing, distributing, and scheduling work across the executors. The driver process is absolutely essential— it’s the heart of a Spark Application and maintains all relevant information during the lifetime of the application.
+
+The executors are responsible for actually carrying out the work that the driver
+assigns them. This means that each executor is responsible for only two things: executing code assigned to it by the driver, and reporting the state of the computation on that executor back to the driver node.
+
