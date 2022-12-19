@@ -1,7 +1,8 @@
 myRange = spark.range(1000).toDF("number")
 
 
-# COMMAND ----------
+# COMMAND ----
+-----
 
 divisBy2 = myRange.where("number % 2 = 0")
 
