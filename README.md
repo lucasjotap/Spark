@@ -29,12 +29,7 @@ Spark includes the ability to read and write from a large number of data sources
 
 Note: We are using two `.option()\`'s and using a csv file format with this example, so keep that in mind.
 
-//in Scala
-**val flightData2015 = spark
-.read
-.option("inferSchema", "true")
-.option("header", "true")
-.csv("PATH")**
+In order to get the schema information, Spark reads in a little bit of the data and then attempts to parse the types in those rows according to the types available in Spark.You also have the option of strictly specifying a schema when you read in data (which is recommended in production scenarios):
 
 #in Python
 **flightData2015 = spark\
@@ -42,6 +37,12 @@ Note: We are using two `.option()\`'s and using a csv file format with this exam
 .option("inferSchema", "true")\
 .option("header", "true")\
 .csv("PATH")**
+
+Each of these DataFrames (in Scala and Python) have a set of columns with an unspecified number of rows. The reason the number of rows is unspecified is because reading data is a transformation, and is therefore a lazy operation. Spark peeked at only a couple of rows of data to try to guess what types each column should be.
+
+![Screenshot from 2022-12-20 14-02-29](https://user-images.githubusercontent.com/98364965/208723916-390ecf92-7cad-43e6-9b1b-c216e53f6996.png)
+
+
 
 `Spark Dataframes & SQL?`
 
