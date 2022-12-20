@@ -29,7 +29,7 @@ Spark includes the ability to read and write from a large number of data sources
 
 Note: We are using two `.option()\`'s with this example so keep that in mind.
 
- in Scala
+//in Scala
  
 val flightData2015 = spark
 .read
