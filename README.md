@@ -30,7 +30,6 @@ Spark includes the ability to read and write from a large number of data sources
 Note: We are using two `.option()\`'s and using a csv file format with this example, so keep that in mind.
 
 **//in Scala
- 
 val flightData2015 = spark
 .read
 .option("inferSchema", "true")
@@ -38,13 +37,11 @@ val flightData2015 = spark
 .csv("PATH")**
 
 **#in Python
- 
 flightData2015 = spark\
 .read\
 .option("inferSchema", "true")\
 .option("header", "true")\
-.csv("PATH")
-**
+.csv("PATH")**
 
 `Spark Dataframes & SQL?`
 
