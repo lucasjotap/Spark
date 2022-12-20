@@ -39,7 +39,7 @@ In order to get the schema information, Spark reads in a little bit of the data 
 .option("header", "true")\
 .csv("PATH")**
 
-Each of these DataFrames (in Python) have a set of columns with an unspecified number of rows. The reason the number of rows is unspecified is because reading data is a transformation, and is therefore a lazy operation. Spark peeked at only a couple of rows of data to try to guess what types each column should be.
+DataFrames (in Python) have a set of columns with an unspecified number of rows. The reason the number of rows is unspecified is because reading data is a transformation, and is therefore a lazy operation. Spark peeked at only a couple of rows of data to try to guess what types each column should be. To get the schema information, Spark reads in a little bit of the data and then attempts to parse the types in those rows according to the types available in Spark.
 
 ![Screenshot from 2022-12-20 14-02-29](https://user-images.githubusercontent.com/98364965/208723916-390ecf92-7cad-43e6-9b1b-c216e53f6996.png)
 
@@ -47,7 +47,28 @@ Each of these DataFrames (in Python) have a set of columns with an unspecified n
 
 `Spark Dataframes & SQL?`
 
+So far the descriptions given regarding data writing and reading were simple examples of `transformations`. Spark can run the same `transformations`, regardless of the language, in the exact same way. You can express your business logic in SQL or DataFrames (either in R, Python,Scala, or Java) and Spark will compile that logic down to an underlying plan (that you can see in the explain plan) before actually executing your code. With Spark SQL, you can register any DataFrame as a table or view (a temporary table) and query it using pure SQL. There is no performance difference between writing SQL queries or writing DataFrame code, they both “compile” to the same underlying plan that we specify in DataFrame code.
 
+You can make any DataFrame into a table or view with one simple method call:
 
+*flightData2015.createOrReplaceTempView("PATH")*
 
+With this line of code, you'll have a table or view and now you can query the data using SQL. To do so user the `spark.sql` function (keep in mind, `spark` is our `SparkSession` variable) that conveniently returns a new Dataframe. Although this might seem a bit circular in logic—that a SQL query against a DataFrame returns another DataFrame—it’s actually quite powerful. 
+
+This is a query in SQL to exemplify what it would look like (the data for this query can be found within the files of the learning project.)
+
+# in Python
+sqlWay = spark.sql("""
+SELECT DEST_COUNTRY_NAME, count(1)
+FROM flight_data_2015
+GROUP BY DEST_COUNTRY_NAME
+""")
+
+dataFrameWay = flightData2015\
+.groupBy("DEST_COUNTRY_NAME")\
+.count()
+
+With theses line, you'll be shown a Spark `Physical Plan`, this physical plan describes how the framework plans to do the transformation programmed by you.
+sqlWay.explain()
+dataFrameWay.explain()
 
