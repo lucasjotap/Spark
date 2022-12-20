@@ -23,3 +23,33 @@ Spark Applications consist of a `driver process` and a set of `executor processe
 The executors are responsible for actually carrying out the work that the driver
 assigns them. This means that each executor is responsible for only two things: executing code assigned to it by the driver, and reporting the state of the computation on that executor back to the driver node.
 
+`How do I write data into Spark?`
+
+Spark includes the ability to read and write from a large number of data sources. To read this data, we will use a `DataFrameReader` that is associated with our `SparkSession`. In doing so, we will specify the file format as well as any options we want to specify. In our case, we want to do something called schema inference, which means that we want Spark to take a best guess at what the schema of our DataFrame should be. We also want to specify that the first row is the header in the file, so we’ll specify that as an option, too.
+
+Note: We are using two `.option()\`'s with this example so keep that in mind.
+
+######// in Scala
+######val flightData2015 = spark
+######.read
+######.option("inferSchema", "true")
+######.option("header", "true")
+######.csv("/data/flight-data/csv/2015-summary.csv")
+
+# in Python
+flightData2015 = spark\
+.read\
+.option("inferSchema", "true")\
+.option("header", "true")\
+.csv("/data/flight-data/csv/2015-summary.csv")
+
+
+
+
+
+`Spark Dataframes & SQL?`
+
+
+
+
+
