@@ -58,6 +58,7 @@ With this line of code, you'll have a table or view and now you can query the da
 This is a query in SQL to exemplify what it would look like (the data for this query can be found within the files of the learning project.)
 
 #in Python
+
 sqlWay = spark.sql("""
 SELECT DEST_COUNTRY_NAME, count(1)
 FROM flight_data_2015
