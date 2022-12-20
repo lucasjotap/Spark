@@ -37,8 +37,6 @@ val flightData2015 = spark
 .option("header", "true")
 .csv("/data/flight-data/csv/2015-summary.csv")
 
------------------
-
  in Python
  
 flightData2015 = spark\
