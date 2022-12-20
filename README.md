@@ -73,3 +73,7 @@ With theses line, you'll be shown a Spark `Physical Plan`, this physical plan de
 sqlWay.explain()
 dataFrameWay.explain()
 
+Here another example for better visualizing qhat the `spark.sql` object is capable of doing:
+
+![Screenshot from 2022-12-20 15-52-48](https://user-images.githubusercontent.com/98364965/208744154-ff018f7e-d100-412e-a9da-aa2bc71f3ddd.png)
+
