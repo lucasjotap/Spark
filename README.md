@@ -95,3 +95,26 @@ To allow every executor to perform work in parallel, Spark breaks up the data in
 
 An important thing to note is that with DataFrames you do not (for the most part)
 manipulate partitions manually or individually. You simply specify high-level transformations of data in the physical partitions, and Spark determines how this work will actually execute on the cluster. Lower-level APIs do exist (via the RDD interface)
+
+`Transformations?`
+
+In Spark, the core data structures are immutable, meaning they cannot be changed
+after they’re created. This might seem like a strange concept at first: if you cannot change it, how are you supposed to use it? To “change” a DataFrame, you need to instruct Spark how you would like to modify it to do what you want. These instructions are called transformations.
+
+Transformations are the core of how you express your business logic using Spark. There are two types of transformations: those that specify `narrow dependencies`, and those that specify `wide dependencies`.
+
+Transformations consisting of narrow dependencies (we’ll call them narrow transformations) are those for which each input partition will contribute to only one output partition.
+
+**Narrow dependency**
+![Screenshot from 2023-01-13 09-44-17](https://user-images.githubusercontent.com/98364965/212323204-8bf0181f-c7eb-4a00-8ba9-7727993bd9da.png)
+
+A wide dependency (or wide transformation) style transformation will have input
+partitions contributing to many output partitions. You will often hear this referred to as a shuffle whereby Spark will exchange partitions across the cluster. With narrow transformations, Spark will automatically perform an operation called pipelining, meaning that if we specify multiple filters on DataFrames, they’ll all be performed in memory. The same cannot be said for shuffles. When we perform a shuffle, Spark writes the results to disk.
+
+![Screenshot from 2023-01-13 09-45-44](https://user-images.githubusercontent.com/98364965/212323455-357324a9-e2f4-417e-9e50-26b8f080cecd.png)
+
+**Now, we'll talk about a import topic**
+
+`Lazy Evaluation`
+
+Lazy evaulation means that Spark will wait until the very last moment to execute the graph of computation instructions. In Spark, instead of modifying the data immediately when you express some operation, you build up a plan of transformations that you would like to apply to your source data. By waiting until the last minute to execute the code, Spark compiles this plan from your raw DataFrame transformations to a streamlined physical plan that will run as efficiently as possible across the cluster. This provides immense benefits because Spark can optimize the entire data flow from end to end. An example of this is something called predicate pushdown on DataFrames. If we build a large Spark job but specify a filter at the end that only requires us to fetch one row from our source data, the most efficient way to execute this is to access the single record that we need. Spark will actually optimize this for us by push‐ing the filter down automatically.
