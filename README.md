@@ -112,6 +112,8 @@ Transformations consisting of narrow dependencies (we’ll call them narrow tran
 A wide dependency (or wide transformation) style transformation will have input
 partitions contributing to many output partitions. You will often hear this referred to as a shuffle whereby Spark will exchange partitions across the cluster. With narrow transformations, Spark will automatically perform an operation called pipelining, meaning that if we specify multiple filters on DataFrames, they’ll all be performed in memory. The same cannot be said for shuffles. When we perform a shuffle, Spark writes the results to disk.
 
+**Wide dependency**
+
 ![Screenshot from 2023-01-13 09-45-44](https://user-images.githubusercontent.com/98364965/212323455-357324a9-e2f4-417e-9e50-26b8f080cecd.png)
 
 **Now, we'll talk about an important topic**
