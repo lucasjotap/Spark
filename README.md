@@ -148,7 +148,7 @@ Pretty cool, huh?! Alright, so from here we can do a few things before running `
 
 First, let's take another look at the set and see what's in it. The set is a short log of flights that contains columns DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAM and count. These records are not sorted by any means, so let's use some Spark magic in order to fix that. 
 
-Second, we'll need to look at some called `Explain Plan` from Spark. 
+Second, we'll need to look at something called `Explain Plan` from Spark. 
 
 Let's run some more code on the terminal: 
 
