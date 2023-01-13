@@ -73,7 +73,25 @@ With theses line, you'll be shown a Spark `Physical Plan`, this physical plan de
 sqlWay.explain()
 dataFrameWay.explain()
 
-Here another example for better visualizing qhat the `spark.sql` object is capable of doing:
+Here another example for better visualizing what the `spark.sql` object is capable of doing:
 
 ![Screenshot from 2022-12-20 15-52-48](https://user-images.githubusercontent.com/98364965/208744154-ff018f7e-d100-412e-a9da-aa2bc71f3ddd.png)
 
+`Dataframes?`
+
+A DataFrame is the most common Structured API and simply represents a table of
+data with rows and columns. The list that defines the columns and the types within those columns is called the schema. You can think of a DataFrame as a spreadsheet with named columns. This is much like a spreadsheet that sits on a single computer but with one fundamental difference, a Spark DataFrame spans across thousands of computers. The reason for such a large operation should be intuitive: either the data is way too large for one computer to handle or it would simply take way too long to perform that computation on one machine.
+
+![Screenshot from 2023-01-13 09-32-16](https://user-images.githubusercontent.com/98364965/212321236-e9936ed6-0e2e-493f-bd09-dd9903d36885.png)
+
+The DataFrame concept is not unique to Spark. R and Python both have similar con‐
+cepts. However, Python/R DataFrames (with some exceptions) exist on one machine
+rather than multiple machines. This limits what you can do with a given DataFrame
+to the resources that exist on that specific machine. However, because Spark has language interfaces for both Python and R, it’s quite easy to convert Pandas (Python) DataFrames to Spark DataFrames, and R DataFrames to Spark DataFrames.
+
+`Partitions?`
+
+To allow every executor to perform work in parallel, Spark breaks up the data into chunks called partitions. A partition is a collection of rows that sit on one physical machine in your cluster. A DataFrame’s partitions represent how the data is physically distributed across the cluster of machines during execution. If you have one partition, Spark will have a parallelism of only one, even if you have thousands of executors. If you have many partitions but only one executor, Spark will still have a parallelism of only one because there is only one computation resource.
+
+An important thing to note is that with DataFrames you do not (for the most part)
+manipulate partitions manually or individually. You simply specify high-level transformations of data in the physical partitions, and Spark determines how this work will actually execute on the cluster. Lower-level APIs do exist (via the RDD interface)
