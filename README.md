@@ -106,6 +106,7 @@ Transformations are the core of how you express your business logic using Spark.
 Transformations consisting of narrow dependencies (we’ll call them narrow transformations) are those for which each input partition will contribute to only one output partition.
 
 **Narrow dependency**
+
 ![Screenshot from 2023-01-13 09-44-17](https://user-images.githubusercontent.com/98364965/212323204-8bf0181f-c7eb-4a00-8ba9-7727993bd9da.png)
 
 A wide dependency (or wide transformation) style transformation will have input
