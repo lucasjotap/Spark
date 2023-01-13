@@ -144,7 +144,7 @@ This gives us a Spark object that allows us to pass methods to it. One of the us
 
 ![Screenshot from 2023-01-13 11-18-15](https://user-images.githubusercontent.com/98364965/212341087-c8733fa5-9d1c-45df-8058-924bd0c8cd30.png)
 
-Pretty cool, huh?! Alright, so from here we can do a few thing before running a `sort()` on the set. 
+Pretty cool, huh?! Alright, so from here we can do a few things before running `sort()` on the set. 
 
 First, let's take another look at the set and see what's in it. The set is a short log of flights that contains columns DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAM and count. These records are not sorted by any means, so let's use some Spark magic in order to fix that. 
 
