@@ -113,7 +113,7 @@ partitions contributing to many output partitions. You will often hear this refe
 
 ![Screenshot from 2023-01-13 09-45-44](https://user-images.githubusercontent.com/98364965/212323455-357324a9-e2f4-417e-9e50-26b8f080cecd.png)
 
-**Now, we'll talk about a import topic**
+**Now, we'll talk about an important topic**
 
 `Lazy Evaluation`
 
