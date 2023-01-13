@@ -131,3 +131,30 @@ Spark also provides a user interface that can be accessed after the it has been 
 
 The Spark UI displays information on the state of your Spark jobs, its environment, and cluster state. And, as you can see on the image above, we're running a PySpark Application. Spark UI is extremely useful for monitoring spark jobs on the cluster.
 
+
+All right! So far we've seen some theory and how Spark works under the hood. Now, I want to cover some more transformations and show how they work. First, it's important to understand that the transformation we're telling Spark to do on certain dataset is no modifying the set itself, but rather it's returning us a new set with the changes that we set in our Spark application. 
+
+Cool! Now that that's out of the way, we'll be able to see how the `sort()` function in Spark can be helpful when working with data. 
+
+Let's imagine that we have read some data into spark with the following code: 
+
+![Screenshot from 2023-01-13 11-16-44](https://user-images.githubusercontent.com/98364965/212340767-bf594797-f725-454b-a2a2-7369680b97fb.png)
+
+This gives us a Spark object that allows us to pass methods to it. One of the useful methods a user can use is the method `show()`. This method will display the first 20 rows available in a set, like so: 
+
+![Screenshot from 2023-01-13 11-18-15](https://user-images.githubusercontent.com/98364965/212341087-c8733fa5-9d1c-45df-8058-924bd0c8cd30.png)
+
+Pretty cool, huh?! Alright, so from here we can do a few thing before running a `sort()` on the set. 
+
+First, let's take another look at the set and see what's in it. The set is a short log of flights that contains columns DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAM and count. These records are not sorted by any means, so let's use some Spark magic in order to fix that. 
+
+Second, we'll need to look at some called `Explain Plan` from Spark. 
+
+Let's run some more code on the terminal: 
+
+![Screenshot from 2023-01-13 11-22-39](https://user-images.githubusercontent.com/98364965/212341999-f718f1e7-4356-48ff-be7a-2d47aa0f6c3b.png)
+
+I know this seems like a soup of letters, but bear with me. Let's break down what happened. First, we take our object that we created earlier `flight_data` and we passed a method called `sort('count')` with the column `count` as a parameter. Instead of calling an action which would allow Spark to run that transformation on the set we requested its explain plan for that sorting task, at the end we have this `flight_data.sort('count').explain()` which gives us the output on the image above. 
+
+Explain plans are a bit arcane, but with a bit of practice it becomes second nature. You can read explain plans from top to bottom, the top being the end result, and the bottom being the source(s) of data. In this case, take a look at the first keywords. You will see sort, exchange, and FileScan. That’s because the sort of our data is actually a wide transformation because rows will need to be compared with one another. Don’t worry too much about understanding everything about explain plans at this point, they can just be helpful tools for debugging and improving your knowledge as you progress with Spark.
+
