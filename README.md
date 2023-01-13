@@ -121,3 +121,13 @@ partitions contributing to many output partitions. You will often hear this refe
 `Lazy Evaluation`
 
 Lazy evaulation means that Spark will wait until the very last moment to execute the graph of computation instructions. In Spark, instead of modifying the data immediately when you express some operation, you build up a plan of transformations that you would like to apply to your source data. By waiting until the last minute to execute the code, Spark compiles this plan from your raw DataFrame transformations to a streamlined physical plan that will run as efficiently as possible across the cluster. This provides immense benefits because Spark can optimize the entire data flow from end to end. An example of this is something called predicate pushdown on DataFrames. If we build a large Spark job but specify a filter at the end that only requires us to fetch one row from our source data, the most efficient way to execute this is to access the single record that we need. Spark will actually optimize this for us by push‐ing the filter down automatically.
+
+
+`Spark UI`
+
+Spark also provides a user interface that can be accessed after the it has been started by going to http://localhost:4040 (If you are running in local mode). This will open up a portal interface that you can use to track the work you've done: 
+
+![Screenshot from 2023-01-13 09-53-55](https://user-images.githubusercontent.com/98364965/212324762-038c900f-c63b-407d-837a-e6c74d4b26bd.png)
+
+The Spark UI displays information on the state of your Spark jobs, its environment, and cluster state. And, as you can see on the image above, we're running a PySpark Application. Spark UI is extremely useful for monitoring spark jobs on the cluster.
+
